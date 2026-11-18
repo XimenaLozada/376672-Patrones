@@ -25,6 +25,24 @@ Base de datos PostgreSQL (consultada con DBeaver).
 | `noticia`, `noticia_geo`, `noticia_scian` | Noticias con lugar, sector y sentimiento | Detectar riesgos (inseguridad, cierres, conflictos) en los municipios candidatos |
 | `diagnostico_calidad` | Problemas de calidad documentados | Explicar los límites del análisis |
 
+### Por qué estas fuentes
+
+Cada fuente responde una parte distinta de la pregunta de negocio, y todas se unen por la clave de estado y municipio:
+
+- **DENUE:** dónde está la demanda (consultorios, laboratorios y hospitales que generan recetas) y dónde está la competencia (farmacias y tiendas de conveniencia).
+- **Gasolina por estado:** cuánto cuesta reabastecer la sucursal una vez abierta.
+- **Noticias:** contexto que los números no muestran, como inseguridad, cierres de comercios o conflictos locales.
+
+### Periodo y cobertura
+
+| Aspecto | Detalle |
+|---|---|
+| Periodo | DENUE: corte a la fecha de su publicación; aperturas revisadas con `fecha_alta`. Gasolina y noticias: últimos 12 meses disponibles en la base |
+| Cobertura geográfica | Nacional, 32 entidades federativas; unidad de análisis: municipio (la gasolina sólo existe por estado) |
+| Registros | DENUE con más de 5 millones de establecimientos |
+| Fecha de consulta | Noviembre de 2026 |
+| Restricciones | El DENUE no incluye ventas en línea ni comercio informal; las tablas se actualizan en fechas distintas; las noticias cubren más las ciudades grandes que los municipios pequeños |
+
 ### Códigos SCIAN utilizados
 
 | Código | Actividad |
@@ -46,6 +64,8 @@ Base de datos PostgreSQL (consultada con DBeaver).
 - **Riesgo:** sentimiento promedio de las noticias de comercio y salud del municipio.
 
 ## Estructura del informe
+
+Avance: secciones 1 a 4 redactadas.
 
 1. Resumen ejecutivo
 2. Contexto del cliente y objetivo de negocio
