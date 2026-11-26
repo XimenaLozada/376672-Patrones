@@ -60,6 +60,7 @@ Cada fuente responde una parte distinta de la pregunta de negocio, y todas se un
 |---|---|
 | `README.md` | Descripción del proyecto |
 | `sql/consultas_farmacias.sql` | Consultas de calidad de datos, vista base por municipio y una consulta por hallazgo |
+| `sql/resultados_para_informe.sql` | Consultas resumidas que generan todas las cifras del informe (totales, ranking con todos los indicadores, gasolina, noticias y calidad) |
 
 ## Cómo reproducir el análisis
 
@@ -99,7 +100,7 @@ Cada fuente responde una parte distinta de la pregunta de negocio, y todas se un
 
 ## Estructura del informe
 
-Avance: las 11 secciones están redactadas; faltan los resultados numéricos de las consultas (marcados como [X] en el informe).
+Avance: las 11 secciones están redactadas. Faltan los resultados numéricos (marcados como [X] en el informe): al cierre del informe no fue posible conectarse al servidor de la base de datos desde fuera de la red de la universidad. Cuando se recupere el acceso, se ejecutará `sql/resultados_para_informe.sql` para completarlos.
 
 1. Resumen ejecutivo
 2. Contexto del cliente y objetivo de negocio
