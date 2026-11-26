@@ -54,6 +54,40 @@ Cada fuente responde una parte distinta de la pregunta de negocio, y todas se un
 | 6215xx | Laboratorios médicos y de diagnóstico |
 | 622xxx | Hospitales |
 
+## Estructura del repositorio
+
+| Ruta | Contenido |
+|---|---|
+| `README.md` | Descripción del proyecto |
+| `sql/consultas_farmacias.sql` | Consultas de calidad de datos, vista base por municipio y una consulta por hallazgo |
+
+## Cómo reproducir el análisis
+
+1. Abrir la base de datos PostgreSQL en DBeaver.
+2. Ejecutar la consulta 0 de `sql/consultas_farmacias.sql` para revisar los nombres de columna de las tablas fuera del DENUE y ajustarlos si es necesario.
+3. Ejecutar las consultas 1a a 1c (calidad de datos).
+4. Ejecutar la consulta 2, que crea la vista materializada `mv_municipio_salud`. Es la más pesada, porque recorre todo el DENUE, y sólo se ejecuta una vez.
+5. Ejecutar las consultas de los hallazgos 1 a 7.
+
+## Técnicas utilizadas
+
+| Técnica | Hallazgo |
+|---|---|
+| Agregación por grupo y tasa normalizada | 1. Farmacias por cada 1,000 negocios |
+| Razón entre complementos y competidores | 2. Servicios de salud por farmacia |
+| Segmentación por categoría | 3. Porcentaje de farmacias pequeñas |
+| Normalización min-max, índice ponderado (40/35/25) y `RANK()` | 4. Índice de oportunidad y ranking |
+| Análisis temporal por cohortes de alta | 5. Ritmo de aperturas desde 2020 |
+| Integración de fuentes (`JOIN`) y promedio de 12 meses | 6. Costo de gasolina por estado |
+| Agregación de sentimiento por lugar y sector | 7. Riesgo según noticias |
+
+## Calidad de datos
+
+- `raz_social` vacía en gran parte del DENUE: no se puede identificar con certeza qué farmacias pertenecen a una cadena; se usa `per_ocu` como aproximación.
+- Establecimientos con nombre genérico ("SIN NOMBRE"): se conservan en los conteos, pero no sirven para identificar marcas.
+- Posibles claves `clee` duplicadas: se revisan con la consulta 1c.
+- La gasolina sólo está disponible por estado, no por municipio.
+
 ## Indicadores del análisis
 
 - **Saturación:** farmacias por cada 1,000 negocios en el municipio.
@@ -65,7 +99,7 @@ Cada fuente responde una parte distinta de la pregunta de negocio, y todas se un
 
 ## Estructura del informe
 
-Avance: secciones 1 a 4 redactadas.
+Avance: las 11 secciones están redactadas; faltan los resultados numéricos de las consultas (marcados como [X] en el informe).
 
 1. Resumen ejecutivo
 2. Contexto del cliente y objetivo de negocio
